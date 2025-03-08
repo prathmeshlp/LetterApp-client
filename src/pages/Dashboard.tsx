@@ -9,19 +9,20 @@ const Dashboard: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [letters, setLetters] = useState<Letter[]>([]);
   const [selectedLetter, setSelectedLetter] = useState<Letter | null>(null);
+  const apiUrl = import.meta.env.VITE_API_URL_LOCAL;
 
   useEffect(() => {
-    axios.get('https://letterappbackend.vercel.app/auth/user', { withCredentials: true })
+    axios.get(`${apiUrl}/auth/user`, { withCredentials: true })
       .then(response => setUser(response.data))
       .catch(() => window.location.href = '/');
 
-    axios.get('https://letterappbackend.vercel.app/letters/list', { withCredentials: true })
+    axios.get(`${apiUrl}/letters/list`, { withCredentials: true })
       .then(response => setLetters(response.data))
       .catch(err => console.error(err));
   }, []);
 
   const handleLogout = () => {
-    axios.get('https://letterappbackend.vercel.app/auth/logout', { withCredentials: true })
+    axios.get(`${apiUrl}/auth/logout`, { withCredentials: true })
       .then(() => window.location.href = '/')
       .catch(err => console.error(err));
   };

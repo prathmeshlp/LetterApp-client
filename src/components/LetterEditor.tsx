@@ -17,6 +17,7 @@ const LetterEditor: React.FC<LetterEditorProps> = ({
 }) => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const apiUrl = import.meta.env.VITE_API_URL_LOCAL;
 
   useEffect(() => {
     if (selectedLetter) {
@@ -36,7 +37,7 @@ const LetterEditor: React.FC<LetterEditorProps> = ({
     try {
       if (selectedLetter) {
         const response = await axios.put(
-          `https://letterappbackend.vercel.app/letters/edit/${selectedLetter._id}`,
+          `${apiUrl}/letters/edit/${selectedLetter._id}`,
           { title, content },
           { withCredentials: true }
         );
@@ -45,8 +46,8 @@ const LetterEditor: React.FC<LetterEditorProps> = ({
         );
         setSelectedLetter(response.data);
       } else {
-        const response = await axios.post(
-          "https://letterappbackend.vercel.app/letters/create",
+        const response = await axios.post(`
+          ${apiUrl}/letters/create`,
           { title, content },
           { withCredentials: true }
         );
@@ -66,7 +67,7 @@ const LetterEditor: React.FC<LetterEditorProps> = ({
     }
     try {
       const response = await axios.post(
-        `https://letterappbackend.vercel.app/letters/save-to-drive/${selectedLetter._id}`,
+        `${apiUrl}/letters/save-to-drive/${selectedLetter._id}`,
         {},
         { withCredentials: true }
       );
@@ -102,7 +103,7 @@ const LetterEditor: React.FC<LetterEditorProps> = ({
     }
     try {
       const response = await axios.get(
-        `https://letterappbackend.vercel.app/letters/fetch-from-drive/${selectedLetter._id}`,
+        `${apiUrl}/letters/fetch-from-drive/${selectedLetter._id}`,
         { withCredentials: true }
       );
       console.log(response, "response");
