@@ -5,8 +5,8 @@ import Dashboard from "./pages/Dashboard";
 
 
 const App: React.FC = () => {
+const apiUrl = import.meta.env.VITE_API_URL_LOCAL;
 
-  const apiUrl = import.meta.env.VITE_API_URL_LOCAL;
   console.log(apiUrl);
   return (
     <>
